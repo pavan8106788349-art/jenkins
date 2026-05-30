@@ -29,7 +29,7 @@ pipeline {
                         echo "Toggle: ${params.TOGGLE}"
                         echo "Choice: ${params.DEPLOY}" 
                         echo "Password: ${params.PASSWORD}"
-                '''
+                
             }
         }
 
