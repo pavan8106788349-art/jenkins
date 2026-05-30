@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        node {
+            label 'roboshop
+            }
+        }
+    }        
 
     stages {
         stage('Build') {
@@ -16,6 +21,7 @@ pipeline {
                 script{
                     sh """
                       echo "Testing"
+                      exit 1
                     sh """  
                 }
             }
@@ -28,6 +34,20 @@ pipeline {
                       sh """  
                 }
             }
+        }
+    }
+}
+
+  // post build
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
+        success {
+            echo "pipeline success"
+        }
+        failure {
+            echo "pipeline failure"
         }
     }
 }
