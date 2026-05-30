@@ -1,67 +1,53 @@
 pipeline {
-    agent {
-        node {
-            label 'roboshop'
+agent {
+node {
+label 'roboshop'
+}
+}
+
+```
+environment {
+    COURSE = "Jenkins"
+}
+
+stages {
+    stage('Build') {
+        steps {
+            sh '''
+                echo "Building"
+            '''
         }
     }
 
-    stages {
-        stage('Build') {
-            steps {
-                script {
-                    sh '''
-                        echo "Building"
-                    '''
-                }
-            }
-        }
-        environment{
-            COURSE = "Jenkins"
-        }
-        stage('Test') {
-            steps {
-                script {
-                    sh '''
-                        echo "Testing"
-                        echo $COURSE
-                    '''
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                script {
-                    sh '''
-                        echo "Deploying"
-                    '''
-                }
-            }
+    stage('Test') {
+        steps {
+            sh '''
+                echo "Testing"
+                echo $COURSE
+            '''
         }
     }
 
-    post {
-        always {
-            echo 'I will always say Hello again!'
-        }
-        success {
-            echo "pipeline success"
-        }
-        failure {
-            echo "pipeline failure"
+    stage('Deploy') {
+        steps {
+            sh '''
+                echo "Deploying"
+            '''
         }
     }
 }
 
-pipeline {
-    agent any
-    stages {
-        stage('Test') {
-            steps {
-                echo 'Hello'
-            }
-        }
+post {
+    always {
+        echo 'I will always say Hello again!'
+    }
+    success {
+        echo "pipeline success"
+    }
+    failure {
+        echo "pipeline failure"
     }
 }
+```
 
-
+}
