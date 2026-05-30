@@ -1,4 +1,3 @@
-
 pipeline {
     agent {
         node {
@@ -20,7 +19,7 @@ pipeline {
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
         booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Toggle this value')
         choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password') 
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
 
     stages {
@@ -45,17 +44,19 @@ pipeline {
                 """
             }
         }
-stage('Deploy') {
-    when {
-        expression { params.DEPLOY == true }
+
+        stage('Deploy') {
+            when {
+                expression { params.DEPLOY == true }
+            }
+            steps {
+                input message: "Should we continue?", ok: "Yes"
+                sh """
+                    echo "Deploying application..."
+                """
+            }
+        }
     }
-    steps {
-        input message: "Should we continue?", ok: "Yes"
-        sh """
-            echo "Deploying application..."
-        """
-    }
-}
 
     post {
         always {
