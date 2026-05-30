@@ -15,13 +15,15 @@ pipeline {
                 }
             }
         }
-
+        environment{
+            COURSE = "Jenkins"
+        }
         stage('Test') {
             steps {
                 script {
                     sh '''
                         echo "Testing"
-                        exit 1
+                        echo $COURSE
                     '''
                 }
             }
