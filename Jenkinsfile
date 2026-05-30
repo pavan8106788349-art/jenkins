@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent {
         node {
@@ -8,10 +9,12 @@ pipeline {
     environment {
         COURSE = "Jenkins"
     }
-     options {
+
+    options {
         disableConcurrentBuilds()
         timeout(time: 5, unit: 'MINUTES')
     }
+
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
@@ -19,34 +22,38 @@ pipeline {
         choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
         password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
+
     stages {
         stage('Build') {
             steps {
-                sh '''
+                sh """
                     echo "Testing"
-                        echo "Hello ${params.PERSON}"
-                        echo "Biography: ${params.BIOGRAPHY}"
-                        echo "Toggle: ${params.TOGGLE}"
-                        echo "Choice: ${params.DEPLOY}" 
-                        echo "Password: ${params.PASSWORD}"
-                
+                    echo "Hello $PERSON"
+                    echo "Biography: $BIOGRAPHY"
+                    echo "Deploy Toggle: $DEPLOY"
+                    echo "Choice: $CHOICE"
+                    echo "Password: $PASSWORD"
+                """
             }
         }
 
         stage('Test') {
             steps {
-                sh '''
-                    echo "Testing"
-                    echo $COURSE
-                '''
+                sh """
+                    echo "Testing Stage"
+                    echo "Course: $COURSE"
+                """
             }
         }
 
         stage('Deploy') {
+            when {
+                expression { params.DEPLOY == true }
+            }
             steps {
-                sh '''
-                    echo "Deploying"
-                '''
+                sh """
+                    echo "Deploying application..."
+                """
             }
         }
     }
@@ -63,5 +70,3 @@ pipeline {
         }
     }
 }
-
-
