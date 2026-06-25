@@ -8,36 +8,35 @@ pipeline {
         stage('Build') { 
             steps {
                 script{
-                    sh """
+                    sh '''
                        echo "Building"
-                    """
+                    '''
                 }
             }
         }
         stage('Test') { 
             steps {
                 script{
-                    sh """
+                    sh '''
                       echo "Testing"
-                    """
+                    '''
                 }
             }
         }
         stage('Deploy') { 
             steps {
                 script{
-                    sh """
+                    sh '''
                      echo "Deploying"
-                    """
+                    '''
                 }
             }
         }
     }
-}
 
-// post build
     post { 
         always { 
             echo 'I will always say Hello again!'
         }
-    }    
+    }
+}
