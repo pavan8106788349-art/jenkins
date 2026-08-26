@@ -1,39 +1,41 @@
-
 pipeline {
-    agent any 
+    agent any
+
     stages {
-        stage('Build') { 
+        stage('Build') {
             steps {
-                script{
-                     sh """
-                      echo "Building"
-                      """              
-                }
-            }
-        }
-        stage('Test') { 
-            steps {
-                script{
-                      sh """
-                       echo "Testing"
-                      """
-                }
-            }
-        }
-        stage('Deploy') { 
-            steps {
-                script{
+                script {
                     sh """
-                     echo "Deploying"
+                        echo "Building"
+                    """
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh """
+                        echo "Testing"
+                    """
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    sh """
+                        echo "Deploying"
                     """
                 }
             }
         }
     }
-}
-    // post build
-    post { 
-        always { 
+
+    post {
+        always {
             echo 'I will always say Hello again!'
         }
     }
+}
