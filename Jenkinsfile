@@ -1,15 +1,18 @@
 pipeline {
     agent {
-          node{
-              label 'ROBOSHOP'
-          }
+        node {
+            label 'ROBOSHOP'
+        }
     }
+
     environment {
         COURSE = "Jenkins"
     }
+
     options {
-        disbaleConcurrentBuilds()
+        disableConcurrentBuilds()
     }
+
     stages {
         stage('Build') {
             steps {
@@ -48,9 +51,11 @@ pipeline {
         always {
             echo 'I will always say Hello again!'
         }
+
         success {
             echo "pipeline success"
         }
+
         failure {
             echo "pipeline failure"
         }
